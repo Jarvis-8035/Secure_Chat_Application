@@ -1,14 +1,19 @@
 # Secure Chat Client
 
+It is a secure Server-Client application made in java given as our class Assignment in Cryptography.
+
+
 The secure chat client utilizes features only included in java 8, please upgrade if you are on 1.7 or lower.
 
 #### 1. Purpose
 This code repository implements a secure instant message system between a client and server program. 
+
 #### 2. Security Requirements
 The following requirements can be enabled/disabled in instructions 3 and 6 (see section 3). 
 
 ##### 2.1 Confidentiality
 Confidentiality is ensuring that information is secure during transfer.
+
 ###### 2.1.1 Key Establishment
 
 If the server and client have both selected integrity, confidentiality or both, the client and server begin establishing a symmetric key pair amongst themselves to be used for AES encryption/decryption as well as the generation of message authentication codes.The key establishment is done via the Diffie Hellman key establishment protocol, implemented using the Java Crypto library. This protocol uses properties of modular arithmetic to establish a symmetric key between two parties without broadcasting the key over the network. This is done using public values p and g, secret values a and b for each of the parties respectively and the property ((ga mod p)b mod p) = ((gb mod p)a mod p). This means both parties can compute the key, without sending a or b across. First each party computes (gmySecret mod p) and sends it to the other. Now each party has (gothersSecret mod p) and can perform ((gothersSecret mod p)mySecret mod p) resulting in the same key for both parties without ‘mySecret’ or ‘othersSecret’ being relayed. The technical sequence of these events can be found in Section 5.
@@ -25,6 +30,7 @@ The integrity property is achieved by sending a message authentication code (MAC
 
 ##### 2.3 Authentication
 Authentication is ensuring the person sending data is who they say they are.
+
 ###### 2.3.1 Password Authentication
 
 If the user selects the authentication security requirement, they will be prompted to enter their password in order to prove that they own the private key they intend to sign their messages with. This is done by storing the hash of the respective client/server password in the pass file contained in their private directories. Once the user enters their password, the value will be hashed using SHA-256 and compared with the hash contained inside their private directory.  In the real world this password would be used to authenticate that the user attempting to access the private key used in step 2 is who they say they are. This could be achieved by having a password protected directory/file which contains a private key. For the sake of this assignment, please assume that directories containing private hashes and keys are properly access controlled.
@@ -44,7 +50,9 @@ Authentication is also enforced by sending a digital signature that is verified 
 6. Start the client: `java Client localhost 8080`
 7. You will be prompted to enable/disable the three security properties above.
 8. If authentication is enabled, you will be prompted for a password. Use: `clientPass`
-9. If the security settings for the server/client do not match connection will fail
+9. If the security settings for the server/client do not match connection will fail.
+
+
 
 ##### Failed protocol validation:
 ###### Client POV:
@@ -53,9 +61,6 @@ Authentication is also enforced by sending a digital signature that is verified 
 ###### Server POV:
 ![](Screenshots/3a.PNG)
 	
-	
-
-
 
 
 ##### Successful protocol validation:
@@ -76,8 +81,6 @@ Authentication is also enforced by sending a digital signature that is verified 
 	
 
 
-
-
 11. To safely close the connection from the client's side, type `bye` and send it to the server.
 
 ###### Client POV:
@@ -93,7 +96,6 @@ Authentication is also enforced by sending a digital signature that is verified 
 ###### Server POV:
 ![](Screenshots/7a.PNG)
 	
-
 
 
 ### 4. Additional Technical Details
